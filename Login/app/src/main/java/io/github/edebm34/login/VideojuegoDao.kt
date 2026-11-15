@@ -1,4 +1,4 @@
-package com.ejemplo.login
+package io.github.edebm34.login
 
 import androidx.room.Dao
 import androidx.room.Delete

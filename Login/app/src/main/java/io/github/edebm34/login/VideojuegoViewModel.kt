@@ -1,4 +1,4 @@
-package com.ejemplo.login
+package io.github.edebm34.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

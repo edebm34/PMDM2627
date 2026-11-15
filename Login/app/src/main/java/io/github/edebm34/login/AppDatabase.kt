@@ -1,4 +1,4 @@
-package com.ejemplo.login
+package io.github.edebm34.login
 
 import android.content.Context
 import androidx.room.Database

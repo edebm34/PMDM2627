@@ -28,15 +28,15 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoginScreen(
-    onLoginSuccess: (String) -> Unit,   // Ahora recibe el email
-    onGoToRegister: () -> Unit          // Nuevo callback
+    onLoginSuccess: (String, Boolean) -> Unit,   // email + remember
+    onGoToRegister: () -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var emailError by remember { mutableStateOf(false) }
     var passwordError by remember { mutableStateOf(false) }
     var showPassword by remember { mutableStateOf(false) }
-    var recordarSesión by remember { mutableStateOf(false) }
+    var rememberSession by remember { mutableStateOf(false) }
 
     val focusManager = LocalFocusManager.current
     val emailFocusRequester = remember { FocusRequester() }
@@ -154,10 +154,8 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Checkbox(
-                checked = recordarSesión,
-                onCheckedChange = {
-                    recordarSesión = !recordarSesión
-                }
+                checked = rememberSession,
+                onCheckedChange = { rememberSession = it }
             )
             Text(stringResource(R.string.recordar_sesion))
         }
@@ -170,7 +168,7 @@ fun LoginScreen(
                 val passOk = validarPassword()
                 if (emailOk && passOk) {
                     focusManager.clearFocus()
-                    onLoginSuccess(email.trim())   // Pasamos el email
+                    onLoginSuccess(email.trim(), rememberSession)
                 }
             },
             modifier = Modifier.fillMaxWidth()
@@ -199,6 +197,6 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     MaterialTheme {
-        LoginScreen(onLoginSuccess = { _ -> }, onGoToRegister = {})
+        LoginScreen(onLoginSuccess = { _, _ -> }, onGoToRegister = {})
     }
 }
